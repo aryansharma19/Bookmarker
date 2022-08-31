@@ -1,9 +1,11 @@
 package Manager;
 
+import Dao.UserDao;
 import Entities.User;
 
 public class UserManager {
     private static UserManager instance = new UserManager();
+    private static UserDao dao = new UserDao();
     private UserManager(){};
     public static UserManager getInstance(){
         return instance;
@@ -18,5 +20,9 @@ public class UserManager {
         user.setGender(gender);
         user.setUserType(userType);
         return user;
+    }
+
+    public User[] getUsers(){
+        return dao.getUsers();
     }
 }
