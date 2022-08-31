@@ -11,9 +11,35 @@ import Manager.BookmarkManager;
 import Manager.UserManager;
 
 public class DataStore {
-    private  static final int USER_LIMIT = 5;
-    private static final int BOOKMARK_TYPES_COUNT = 3;
-    private static final int BOOKMARK_COUNT_PER_TYPE = 5;
+    public static final int USER_LIMIT = 5;
+    public static final int BOOKMARK_TYPES_COUNT = 3;
+    public static final int BOOKMARK_COUNT_PER_TYPE = 5;
+    private static int counter;
+
+    public static User[] getUser() {
+        return user;
+    }
+
+    public static void setUser(User[] user) {
+        DataStore.user = user;
+    }
+
+    public static Bookmark[][] getBookmarks() {
+        return bookmarks;
+    }
+
+    public static void setBookmarks(Bookmark[][] bookmarks) {
+        DataStore.bookmarks = bookmarks;
+    }
+
+    public static UserBookmark[] getUserBookmarks() {
+        return userBookmarks;
+    }
+
+    public static void setUserBookmarks(UserBookmark[] userBookmarks) {
+        DataStore.userBookmarks = userBookmarks;
+    }
+
     private static final int USER_BOOKMARK_LIMIT = 5;
 
 
@@ -59,5 +85,10 @@ public class DataStore {
         bookmarks[2][3] = BookmarkManager.getInstance().createBook(4003,"Head First Design Patterns",2004,"O'Reilly Media",new String[]{"Eric Freeman","Bert Bates","Kathy Sierra","Elisabeth Robson"},BookGenre.TECHNICAL,4.5);
         bookmarks[2][4] = BookmarkManager.getInstance().createBook(4004,"Effective Java Programming Language Guide",2007,"Prentice Hall",new String[]{"Joshua Bloch"},BookGenre.TECHNICAL,4.9);
 
+    }
+
+    public static void add(UserBookmark userBookmark){
+        userBookmarks[counter] = userBookmark;
+        counter++;
     }
 }
