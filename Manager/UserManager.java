@@ -1,6 +1,7 @@
 package Manager;
 
 import Dao.UserDao;
+import Entities.Bookmark;
 import Entities.User;
 
 public class UserManager {
@@ -25,4 +26,5 @@ public class UserManager {
     public User[] getUsers(){
         return dao.getUsers();
     }
+
 }
