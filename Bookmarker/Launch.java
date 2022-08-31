@@ -20,6 +20,7 @@ public class Launch {
     }
     public static void main(String[] args) {
         loadData();
+        startBookmarking();
     }
 
     private static void printUsers(){
@@ -35,6 +36,13 @@ public class Launch {
                 System.out.println(book);
             }
             System.out.println();
+        }
+    }
+
+    public static void startBookmarking(){
+        System.out.println("2) Start bookmarking . . . ");
+        for(User user:users){
+            View.bookmark(user,bookmarks);
         }
     }
 }
