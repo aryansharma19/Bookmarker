@@ -1,11 +1,20 @@
 package Entities;
 
+import Constants.KidFriendlyStatus;
+
 public abstract class Bookmark {
     private long id;
     private String title;
     private String profileUrl;
+    private String kidFriendlyStatus = KidFriendlyStatus.UNKNOWN;
 
+    public String getKidFriendlyStatus() {
+        return kidFriendlyStatus;
+    }
 
+    public void setKidFriendlyStatus(String kidFriendlyStatus) {
+        this.kidFriendlyStatus = kidFriendlyStatus;
+    }
 
     public long getId() {
         return id;

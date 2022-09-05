@@ -40,7 +40,7 @@ public class DataStore {
         DataStore.userBookmarks = userBookmarks;
     }
 
-    private static final int USER_BOOKMARK_LIMIT = 5;
+    public static final int USER_BOOKMARK_LIMIT = 5;
 
 
     private static User[] user = new User[USER_LIMIT];
