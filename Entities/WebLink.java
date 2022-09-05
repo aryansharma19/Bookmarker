@@ -1,6 +1,8 @@
 package Entities;
 
-public class WebLink extends Bookmark{
+import Partner.Shareable;
+
+public class WebLink extends Bookmark implements Shareable {
     private String url;
     private String host;
 
@@ -34,5 +36,18 @@ public class WebLink extends Bookmark{
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String getItemData() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("<item>");
+        sb.append("<type>WebLink</type>");
+        sb.append("<title>").append(getTitle()).append("</title>");
+        sb.append("<url>").append(url).append("</url>");
+        sb.append("<title>").append(host).append("</title>");
+        sb.append("</item>");
+        return sb.toString();
     }
 }
