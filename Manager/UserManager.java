@@ -4,6 +4,8 @@ import Dao.UserDao;
 import Entities.Bookmark;
 import Entities.User;
 
+import java.util.List;
+
 public class UserManager {
     private static UserManager instance = new UserManager();
     private static UserDao dao = new UserDao();
@@ -23,7 +25,7 @@ public class UserManager {
         return user;
     }
 
-    public User[] getUsers(){
+    public List<User> getUsers(){
         return dao.getUsers();
     }
 

@@ -4,8 +4,10 @@ import Bookmarker.DataStore;
 import Entities.Bookmark;
 import Entities.UserBookmark;
 
+import java.util.List;
+
 public class BookmarkDao {
-    public Bookmark[][] getBookmarks(){
+    public List<List<Bookmark>> getBookmarks(){
         return DataStore.getBookmarks();
     }
 

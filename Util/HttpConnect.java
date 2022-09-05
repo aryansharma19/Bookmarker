@@ -11,7 +11,6 @@ public class HttpConnect {
         try {
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
             int responseCode = con.getResponseCode();
-            System.out.println(responseCode);
 
             if(responseCode >= 200 && responseCode < 300){
                 return IOUtil.read(con.getInputStream());

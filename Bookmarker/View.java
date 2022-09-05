@@ -7,22 +7,22 @@ import Entities.Bookmark;
 import Entities.User;
 import Partner.Shareable;
 
+import java.util.List;
+
 public class View {
 
     //Depicts the UI interface
-    public static void bookmark(User user, Bookmark[][] bookmarks){
+    public static void bookmark(User user, List<List<Bookmark>> bookmarks){
         System.out.println("\n"+user.getEmail()+" is browsing items");
         int bookMarkCount = 0;
 
-        for(Bookmark[] bookmarkList :bookmarks){
+        for(List<Bookmark> bookmarkList :bookmarks){
             for(Bookmark bookmark: bookmarkList){
-                if(bookMarkCount< DataStore.USER_BOOKMARK_LIMIT){
-                    boolean isBookmarked = getBookmarkDecision(bookmark);
-                    if(isBookmarked){
-                        bookMarkCount++;
-                        BookmarkController.getInstance().saveUserBookmark(user,bookmark);
-                        System.out.println("NEW ITEM BOOKMARKED -- "+ bookmark);
-                    }
+                boolean isBookmarked = getBookmarkDecision(bookmark);
+                if (isBookmarked) {
+                    bookMarkCount++;
+                    BookmarkController.getInstance().saveUserBookmark(user, bookmark);
+                    System.out.println("NEW ITEM BOOKMARKED -- " + bookmark);
 
                     //setting the kid friendly status
                     if(user.getUserType().equals(UserType.EDITOR) || user.getUserType().equals(UserType.CHIEF_EDITOR)){

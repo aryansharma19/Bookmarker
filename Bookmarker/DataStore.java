@@ -11,25 +11,28 @@ import Manager.BookmarkManager;
 import Manager.UserManager;
 import Util.IOUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DataStore {
-    public static final int USER_LIMIT = 5;
+    /*public static final int USER_LIMIT = 5;
     public static final int BOOKMARK_TYPES_COUNT = 3;
-    public static final int BOOKMARK_COUNT_PER_TYPE = 5;
+    public static final int BOOKMARK_COUNT_PER_TYPE = 5;*/
     private static int counter;
 
-    public static User[] getUser() {
+    public static List<User> getUser() {
         return user;
     }
 
-    public static void setUser(User[] user) {
+    public static void setUser(List<User> user) {
         DataStore.user = user;
     }
 
-    public static Bookmark[][] getBookmarks() {
+    public static List<List<Bookmark>> getBookmarks() {
         return bookmarks;
     }
 
-    public static void setBookmarks(Bookmark[][] bookmarks) {
+    public static void setBookmarks(List<List<Bookmark>> bookmarks) {
         DataStore.bookmarks = bookmarks;
     }
 
@@ -41,12 +44,12 @@ public class DataStore {
         DataStore.userBookmarks = userBookmarks;
     }
 
-    public static final int USER_BOOKMARK_LIMIT = 5;
+    //public static final int USER_BOOKMARK_LIMIT = 5;
 
 
-    private static User[] user = new User[USER_LIMIT];
-    private static Bookmark[][] bookmarks = new Bookmark[BOOKMARK_TYPES_COUNT][BOOKMARK_COUNT_PER_TYPE];
-    private static UserBookmark[] userBookmarks = new UserBookmark[USER_LIMIT*USER_BOOKMARK_LIMIT];
+    private static List<User> user = new ArrayList<>();
+    private static List<List<Bookmark>> bookmarks = new ArrayList<>();
+    private static List<UserBookmark> userBookmarks = new ArrayList<>();
 
     public static void loadData(){
         loadUsers();
@@ -56,7 +59,8 @@ public class DataStore {
     }
 
     public static void loadUsers(){
-        String[] userDataFromFile = new String[USER_LIMIT];
+        //String[] userDataFromFile = new String[USER_LIMIT];
+        List<String> userDataFromFile = new ArrayList<>();
         IOUtil.read(userDataFromFile, "./src/files/User");
         int counter = 0;
         for(String row:userDataFromFile){
@@ -68,7 +72,7 @@ public class DataStore {
             else if(value[4].equals("t")){
                 gender = Gender.TRANSGENDER;
             }
-            user[counter++] = UserManager.getInstance().createUser(Long.parseLong(value[0]),value[1],value[2],value[3],value[4],gender,value[6]);
+            user.add(UserManager.getInstance().createUser(Long.parseLong(value[0]),value[1],value[2],value[3],value[4],gender,value[6]));
         }
         /*user[0] = UserManager.getInstance().createUser(1000,"user0@semanticsquare.com","test","John","M",Gender.MALE, UserType.USER);
         user[1] = UserManager.getInstance().createUser(1001,"user1@semanticsquare.com","test","Sam","M",Gender.MALE,UserType.USER);
@@ -78,13 +82,15 @@ public class DataStore {
     }
 
     public static void loadWebLinks(){
-        String[] weblinkDataFromFile = new String[BOOKMARK_COUNT_PER_TYPE];
+        //String[] weblinkDataFromFile = new String[BOOKMARK_COUNT_PER_TYPE];
+        List<String> weblinkDataFromFile = new ArrayList<>();
         IOUtil.read(weblinkDataFromFile,"./src/files/WebLink");
-        int counter = 0;
+        List<Bookmark> values = new ArrayList<>();
         for(String row:weblinkDataFromFile){
             String[] data = row.split("\t");
-            bookmarks[0][counter++] = BookmarkManager.getInstance().createWebLink(Long.parseLong(data[0]),data[1],data[2],data[3]);
+            values.add(BookmarkManager.getInstance().createWebLink(Long.parseLong(data[0]),data[1],data[2],data[3]));
         }
+        bookmarks.add(values);
         /*bookmarks[0][0] = BookmarkManager.getInstance().createWebLink(2000,"Taming Tiger, Part 2","http://www.javaworld.com/article/2072759/core-java/taming-tiger--part-2.html","http://www.javaworld.com");
         bookmarks[0][1] = BookmarkManager.getInstance().createWebLink(2001,"How do I import a pre-existing Java project into Eclipse and get up and running?","http://stackoverflow.com/questions/142863/how-do-i-import-a-pre-existing-java-project-into-eclipse-and-get-up-and-running","http://www.stackoverflow.com");
         bookmarks[0][2] = BookmarkManager.getInstance().createWebLink(2002,"Interface vs Abstract Class","http://mindprod.com/jgloss/interfacevsabstract.html","http://mindprod.com");
@@ -93,13 +99,15 @@ public class DataStore {
     }
 
     public static void loadMovies(){
-        String[] moviesDataFromFile = new String[BOOKMARK_COUNT_PER_TYPE];
+        //String[] moviesDataFromFile = new String[BOOKMARK_COUNT_PER_TYPE];
+        List<String> moviesDataFromFile = new ArrayList<>();
         IOUtil.read(moviesDataFromFile,"./src/files/Movie");
-        int counter = 0;
+        List<Bookmark> values = new ArrayList<>();
         for(String row:moviesDataFromFile){
             String[] data = row.split("\t");
-            bookmarks[1][counter++] = BookmarkManager.getInstance().createMovie(Long.parseLong(data[0]),data[1],Integer.parseInt(data[2]),data[3].split(","),data[4].split(","),data[5],Double.parseDouble(data[6]));
+            values.add(BookmarkManager.getInstance().createMovie(Long.parseLong(data[0]),data[1],Integer.parseInt(data[2]),data[3].split(","),data[4].split(","),data[5],Double.parseDouble(data[6])));
         }
+        bookmarks.add(values);
         /*bookmarks[1][0] = BookmarkManager.getInstance().createMovie(3000,"Citizen Kane",1941,new String[]{"Orson Welles","Joseph Cotten"},new String[]{"Orson Welles"}, MovieGenre.CLASSICS,8.5);
         bookmarks[1][1] = BookmarkManager.getInstance().createMovie(3001,"The Grapes of Wrath",1940,new String[]{"Henry Fonda","Jane Darwell"},new String[]{"John Ford"},MovieGenre.CLASSICS,8.2);
         bookmarks[1][2] = BookmarkManager.getInstance().createMovie(3002,"A Touch of Greatness",2004,new String[]{"Albert Cullum"},new String[]{"Leslie Sullivan"},MovieGenre.DOCUMENTARIES,7.3);
@@ -108,13 +116,15 @@ public class DataStore {
     }
 
     public static void loadBooks(){
-        String[] booksDataFromFile = new String[BOOKMARK_COUNT_PER_TYPE];
+        //String[] booksDataFromFile = new String[BOOKMARK_COUNT_PER_TYPE];
+        List<String> booksDataFromFile = new ArrayList<>();
         IOUtil.read(booksDataFromFile,"./src/files/Book");
-        int counter = 0;
+        List<Bookmark> values = new ArrayList<>();
         for(String row:booksDataFromFile){
             String[] data = row.split("\t");
-            bookmarks[2][counter++] = BookmarkManager.getInstance().createBook(Long.parseLong(data[0]),data[1],Integer.parseInt(data[2]),data[3],data[4].split(","),data[5],Double.parseDouble(data[6]));
+            values.add(BookmarkManager.getInstance().createBook(Long.parseLong(data[0]),data[1],Integer.parseInt(data[2]),data[3],data[4].split(","),data[5],Double.parseDouble(data[6])));
         }
+        bookmarks.add(values);
 
         /*bookmarks[2][0] = BookmarkManager.getInstance().createBook(4000,"Walden",1854,"Wilder Publications",new String[]{"Wilder Publications"}, BookGenre.PHILOSOPHY,4.3);
         bookmarks[2][1] = BookmarkManager.getInstance().createBook(4001,"Self-Reliance and Other Essays",1993,"Dover Publications",new String[]{"Ralph Waldo Emerson"},BookGenre.PHILOSOPHY,4.5);
@@ -125,7 +135,6 @@ public class DataStore {
     }
 
     public static void add(UserBookmark userBookmark){
-        userBookmarks[counter] = userBookmark;
-        counter++;
+        userBookmarks.add(userBookmark);
     }
 }

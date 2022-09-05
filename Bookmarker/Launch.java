@@ -6,10 +6,11 @@ import Manager.BookmarkManager;
 import Manager.UserManager;
 
 import java.io.File;
+import java.util.List;
 
 public class Launch {
-    private static User[] users;
-    private static Bookmark[][] bookmarks;
+    private static List<User> users;
+    private static List<List<Bookmark>> bookmarks;
     private static void loadData(){
         System.out.println("1) Loading data . . .  ");
         DataStore.loadData();
@@ -35,7 +36,7 @@ public class Launch {
     }
 
     private static void printBookmarks(){
-        for(Bookmark[] bookType:bookmarks){
+        for(List<Bookmark> bookType:bookmarks){
             for(Bookmark book:bookType){
                 System.out.println(book);
             }
