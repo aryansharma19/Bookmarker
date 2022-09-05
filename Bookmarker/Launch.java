@@ -18,7 +18,7 @@ public class Launch {
 
         //System.out.println("Printing data . . . ");
         //printUsers();
-        //printBookmarks();
+        printBookmarks();
     }
     public static void main(String[] args) {
         loadData();

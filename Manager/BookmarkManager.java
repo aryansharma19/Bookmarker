@@ -2,6 +2,11 @@ package Manager;
 
 import Dao.BookmarkDao;
 import Entities.*;
+import Util.HttpConnect;
+import Util.IOUtil;
+
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 
 public class BookmarkManager {
     private static BookmarkManager instance = new BookmarkManager();
@@ -56,6 +61,22 @@ public class BookmarkManager {
         userBookmark.setBookmark(bookmark);
         userBookmark.setUser(user);
         dao.saveUserBookmark(userBookmark);
+
+        if(bookmark instanceof WebLink){
+            String url = ((WebLink) bookmark).getUrl();
+            if(!url.endsWith(".pdf")){
+                try {
+                    String data = HttpConnect.download(url);
+                    if(data != null){
+                        IOUtil.write(data,bookmark.getId());
+                    }
+                } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 
     public void setKidFriendlyStatus(User user,String kidFriendlyStatus,Bookmark bookmark){
