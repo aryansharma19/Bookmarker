@@ -5,6 +5,8 @@ import Entities.User;
 import Manager.BookmarkManager;
 import Manager.UserManager;
 
+import java.io.File;
+
 public class Launch {
     private static User[] users;
     private static Bookmark[][] bookmarks;
@@ -21,6 +23,8 @@ public class Launch {
     public static void main(String[] args) {
         loadData();
         startBookmarking();
+        /*File file = new File(".");
+        for(String fileNames : file.list()) System.out.println(fileNames);*/
     }
 
     private static void printUsers(){
