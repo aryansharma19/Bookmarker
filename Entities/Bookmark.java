@@ -1,9 +1,11 @@
 package Entities;
 
-public class Bookmark {
+public abstract class Bookmark {
     private long id;
     private String title;
     private String profileUrl;
+
+
 
     public long getId() {
         return id;
@@ -28,4 +30,6 @@ public class Bookmark {
     public void setProfileUrl(String profileUrl) {
         this.profileUrl = profileUrl;
     }
+
+    public abstract boolean isKidFriendlyEligible();
 }
