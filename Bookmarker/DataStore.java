@@ -17,8 +17,8 @@ import java.util.List;
 public class DataStore {
     /*public static final int USER_LIMIT = 5;
     public static final int BOOKMARK_TYPES_COUNT = 3;
-    public static final int BOOKMARK_COUNT_PER_TYPE = 5;*/
-    private static int counter;
+    public static final int BOOKMARK_COUNT_PER_TYPE = 5;
+    private static int counter;*/
 
     public static List<User> getUser() {
         return user;
@@ -36,11 +36,11 @@ public class DataStore {
         DataStore.bookmarks = bookmarks;
     }
 
-    public static UserBookmark[] getUserBookmarks() {
+    public static List<UserBookmark> getUserBookmarks() {
         return userBookmarks;
     }
 
-    public static void setUserBookmarks(UserBookmark[] userBookmarks) {
+    public static void setUserBookmarks(List<UserBookmark> userBookmarks) {
         DataStore.userBookmarks = userBookmarks;
     }
 
@@ -59,17 +59,15 @@ public class DataStore {
     }
 
     public static void loadUsers(){
-        //String[] userDataFromFile = new String[USER_LIMIT];
         List<String> userDataFromFile = new ArrayList<>();
         IOUtil.read(userDataFromFile, "./src/files/User");
-        int counter = 0;
         for(String row:userDataFromFile){
-            String[] value = row.split("\t");
-            int gender = Gender.MALE;
-            if(value[4].equals("f")){
+            String[] value = row.split(" ");
+            Gender gender = Gender.MALE;
+            if(value[5].equals("f")){
                 gender = Gender.FEMALE;
             }
-            else if(value[4].equals("t")){
+            else if(value[5].equals("t")){
                 gender = Gender.TRANSGENDER;
             }
             user.add(UserManager.getInstance().createUser(Long.parseLong(value[0]),value[1],value[2],value[3],value[4],gender,value[6]));
@@ -105,7 +103,7 @@ public class DataStore {
         List<Bookmark> values = new ArrayList<>();
         for(String row:moviesDataFromFile){
             String[] data = row.split("\t");
-            values.add(BookmarkManager.getInstance().createMovie(Long.parseLong(data[0]),data[1],Integer.parseInt(data[2]),data[3].split(","),data[4].split(","),data[5],Double.parseDouble(data[6])));
+            values.add(BookmarkManager.getInstance().createMovie(Long.parseLong(data[0]),data[1],Integer.parseInt(data[2]),data[3].split(","),data[4].split(","),MovieGenre.valueOf(data[5]),Double.parseDouble(data[6])));
         }
         bookmarks.add(values);
         /*bookmarks[1][0] = BookmarkManager.getInstance().createMovie(3000,"Citizen Kane",1941,new String[]{"Orson Welles","Joseph Cotten"},new String[]{"Orson Welles"}, MovieGenre.CLASSICS,8.5);
@@ -122,7 +120,7 @@ public class DataStore {
         List<Bookmark> values = new ArrayList<>();
         for(String row:booksDataFromFile){
             String[] data = row.split("\t");
-            values.add(BookmarkManager.getInstance().createBook(Long.parseLong(data[0]),data[1],Integer.parseInt(data[2]),data[3],data[4].split(","),data[5],Double.parseDouble(data[6])));
+            values.add(BookmarkManager.getInstance().createBook(Long.parseLong(data[0]),data[1],Integer.parseInt(data[2]),data[3],data[4].split(","), BookGenre.valueOf(data[5]),Double.parseDouble(data[6])));
         }
         bookmarks.add(values);
 

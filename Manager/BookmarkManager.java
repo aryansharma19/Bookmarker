@@ -1,5 +1,7 @@
 package Manager;
 
+import Constants.BookGenre;
+import Constants.MovieGenre;
 import Dao.BookmarkDao;
 import Entities.*;
 import Util.HttpConnect;
@@ -17,7 +19,7 @@ public class BookmarkManager {
         return instance;
     }
 
-   public Movie createMovie(long id,String title,int releaseYear, String[] cast, String[] directors, String genre, double imdbRating){
+   public Movie createMovie(long id, String title, int releaseYear, String[] cast, String[] directors, MovieGenre genre, double imdbRating){
         Movie movie = new Movie();
         movie.setId(id);
         movie.setTitle(title);
@@ -30,7 +32,7 @@ public class BookmarkManager {
         return movie;
     }
 
-    public Book createBook(long id,String title,int publicationYear,String publisher, String[] authors,String genre,double amazonRating){
+    public Book createBook(long id, String title, int publicationYear, String publisher, String[] authors, BookGenre genre, double amazonRating){
         Book book = new Book();
         book.setId(id);
         book.setTitle(title);
